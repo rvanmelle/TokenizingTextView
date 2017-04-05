@@ -22,6 +22,7 @@ public class Tokenizer: NSObject {
         self.textView = textView
         self.tokenStack = TokenStack(tokens: tokens)
         super.init()
+        textView.delegate = self
         updateTextView()
     }
 
@@ -38,43 +39,75 @@ public class Tokenizer: NSObject {
     }
 }
 
-extension TokenStack {
-    // MARK: Generation
+extension Tokenizer {
+    // Mark: Editing
 
-    func attributedString(_ conf: Configuration) -> (NSAttributedString, [NSRange]) {
-        let result = NSMutableAttributedString()
-        var attRanges: [NSRange] = []
+    func shouldHijackBackspace(with range:NSRange) -> Bool {
+        guard range.length <= 1 else { return false }
 
-        guard tokens.count > 0, let lastToken = tokens.last else { return (result, attRanges) }
+        let index = tokenIndex(for: range.location)
+        guard let token = self.tokenStack.token(at: index) else { return false }
 
-        let separator = NSAttributedString(string: " ", attributes: conf.commonAttributes)
-        for token in tokens[0...tokens.count-1] {
-            let lastRange = attRanges.last ?? NSMakeRange(0, 0)
-            let newAttrString = token.attributedString(conf).mutableCopy() as! NSMutableAttributedString
-            newAttrString.append(separator)
-            attRanges.append(NSMakeRange(lastRange.location + lastRange.length, newAttrString.length))
-            result.append(newAttrString)
+        return token.tokenType == .token
+    }
+
+    func doBackspaceSelect(with range:NSRange) {
+        let index = tokenIndex(for: range.location)
+        textView.selectedRange = cachedRanges[index]
+    }
+
+    func doReturn(with range:NSRange) {
+        
+    }
+
+    func range(for token:Token) -> NSRange {
+        let index = self.tokenStack.index(of: token)
+        if index != NSNotFound && index < cachedRanges.count {
+            return cachedRanges[index]
+        } else {
+            return NSMakeRange(NSNotFound, 0)
         }
-        let lastRange = attRanges.last ?? NSMakeRange(0, 0)
-        let finalAttrString = lastToken.attributedString(conf)
-        attRanges.append(NSMakeRange(lastRange.location + lastRange.length, finalAttrString.length+1))
-        result.append(finalAttrString)
-        // Add another separator token?
-        return (result, attRanges)
+    }
+
+    func tokenIndex(for location:Int) -> Int {
+        for (i,r) in cachedRanges.enumerated() {
+            if NSLocationInRange(location, r) {
+                return i
+            }
+        }
+        return cachedRanges.count
     }
 }
 
-extension Token {
+extension Tokenizer: UITextViewDelegate {
 
-    // MARK: Generation
 
-    func attributedString(_ conf: Configuration) -> NSAttributedString {
-        switch  tokenType {
-        case .text:
-            return NSAttributedString(string: text, attributes: conf.workingTextAttributes)
-        case .token:
-            return NSAttributedString(string: text, attributes: conf.tokenTextAttributes)
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        switch text {
+        case "":
+            if shouldHijackBackspace(with: range) {
+                doBackspaceSelect(with: range)
+                return false
+            }
+        case "\n":
+            doReturn(with: range)
+            return false
+        case _ where configuration.maxCharLimit > 0 && textView.text.characters.count > configuration.maxCharLimit:
+            return false
+        default:
+            break
         }
+
+        if text != "" {
+
+        }
+        return true
+    }
+
+    public func textViewDidChangeSelection(_ textView: UITextView) {
+        guard textView.isFirstResponder else { return }
+        guard textView.selectedRange.length > 0 else { return }
     }
 }
+
 

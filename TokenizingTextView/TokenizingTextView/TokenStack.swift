@@ -19,4 +19,12 @@ class TokenStack: CustomStringConvertible {
     var description: String {
         return tokens.map { return $0.description }.joined(separator:" ")
     }
+
+    func index(of token:Token) -> Int {
+        fatalError()
+    }
+
+    func token(at index:Int) -> Token? {
+        return tokens[index]
+    }
 }

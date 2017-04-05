@@ -11,6 +11,7 @@ import Foundation
 public struct Configuration {
     
     var maximumViewHeight: CGFloat = 140.0
+    var maxCharLimit: Int = 0
     var fontName = "HelveticaNeue"
     var pointSize: CGFloat = 16.0
     var lineSpacing: CGFloat = 4.0

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		633C896F1E9577C5002F1438 /* TokenizingTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A89081E8C893B00D64DD3 /* TokenizingTextView.framework */; };
 		633C89701E9577C5002F1438 /* TokenizingTextView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 636A89081E8C893B00D64DD3 /* TokenizingTextView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		633C89731E957E5A002F1438 /* Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633C89721E957E5A002F1438 /* Generation.swift */; };
 		636A89121E8C893B00D64DD3 /* TokenizingTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A89081E8C893B00D64DD3 /* TokenizingTextView.framework */; };
 		636A89171E8C893B00D64DD3 /* TokenizingTextViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A89161E8C893B00D64DD3 /* TokenizingTextViewTests.swift */; };
 		636A89191E8C893B00D64DD3 /* TokenizingTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 636A890B1E8C893B00D64DD3 /* TokenizingTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		633C89721E957E5A002F1438 /* Generation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generation.swift; sourceTree = "<group>"; };
 		636A89081E8C893B00D64DD3 /* TokenizingTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TokenizingTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		636A890B1E8C893B00D64DD3 /* TokenizingTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokenizingTextView.h; sourceTree = "<group>"; };
 		636A890C1E8C893B00D64DD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				636A89A01E8C89EE00D64DD3 /* Token.swift */,
 				636A89A21E8C89FE00D64DD3 /* Configuration.swift */,
 				636A89A41E8C8A0C00D64DD3 /* TokenStack.swift */,
+				633C89721E957E5A002F1438 /* Generation.swift */,
 			);
 			path = TokenizingTextView;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				636A89A71E8C8A3D00D64DD3 /* Tokenizer.swift in Sources */,
 				636A89A11E8C89EE00D64DD3 /* Token.swift in Sources */,
 				636A89A51E8C8A0C00D64DD3 /* TokenStack.swift in Sources */,
+				633C89731E957E5A002F1438 /* Generation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
