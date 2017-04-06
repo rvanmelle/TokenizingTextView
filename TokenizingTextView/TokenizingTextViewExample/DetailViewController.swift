@@ -17,6 +17,10 @@ class DetailViewController: UIViewController {
     func configureView() {
     }
 
+    func updateFromStack() {
+        tokenizer.updateTextView()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let tokens: [Token] = [
@@ -26,6 +30,7 @@ class DetailViewController: UIViewController {
         ]
         self.tokenizer = Tokenizer(textView: textView, tokens:tokens)
         self.configureView()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Refresh", style: .plain, target: self, action: #selector(updateFromStack))
     }
 
     var detailItem: NSDate? {

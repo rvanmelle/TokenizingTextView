@@ -12,10 +12,10 @@ public enum TokenType {
     case text, token
 }
 
-public struct Token: CustomStringConvertible {
-    let tokenType: TokenType
-    let text: String
-    let uid: String?
+public class Token: NSObject {
+    var tokenType: TokenType
+    var text: String
+    var uid: String?
 
     public init(text:String, type:TokenType = .text) {
         self.tokenType = type
@@ -23,7 +23,7 @@ public struct Token: CustomStringConvertible {
         self.uid = nil
     }
 
-    public var description: String {
+    public override var description: String {
         return "[\(text)]" + (uid == nil ? "" : "(\(uid!))")
     }
 }

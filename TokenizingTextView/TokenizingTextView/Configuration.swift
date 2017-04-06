@@ -19,6 +19,7 @@ public struct Configuration {
     var defaultTextcolor = UIColor.black
     var tokenizedTextColor = UIColor.blue
     var selectedTokenTextColor = UIColor.white
+    var debug = true
 
     var font: UIFont {
         return UIFont(name: fontName, size: pointSize) ?? UIFont.systemFont(ofSize: pointSize)
